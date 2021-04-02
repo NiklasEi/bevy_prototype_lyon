@@ -11,10 +11,12 @@ repository = "https://github.com/Nilirad/bevy_prototype_lyon/"
 version = "0.2.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[features]
+default = [
+    "bevy/render",
+]
 
 [dependencies]
-bevy = {git = "https://github.com/bevyengine/bevy", branch = "main", default-features = false}
+bevy = { git = "https://github.com/bevyengine/bevy/", rev = "7a511394ac6c4f90b5398ab6333f1bd4fd665613", default-features = false }
 lyon_tessellation = "0.17"
 svgtypes = "0.5.0"
-[dev-dependencies]
-bevy = {git = "https://github.com/bevyengine/bevy", branch = "main"}

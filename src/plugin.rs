@@ -10,23 +10,7 @@
 //! Then, in [`Stage::Shape`] stage, there is a system
 //! that creates a mesh for each entity that has been spawned as a
 //! `ShapeBundle`.
-
-use bevy::{
-    app::{AppBuilder, Plugin},
-    asset::{Assets, Handle},
-    ecs::{
-        query::Added,
-        schedule::{StageLabel, SystemStage},
-        system::{IntoSystem, Query, ResMut},
-    },
-    log::error,
-    render::{
-        color::Color,
-        draw::Visible,
-        mesh::{Indices, Mesh},
-        pipeline::PrimitiveTopology,
-    },
-};
+use bevy::prelude::*;
 use lyon_tessellation::{
     self as tess, path::Path, BuffersBuilder, FillTessellator, FillVertex, FillVertexConstructor,
     StrokeTessellator, StrokeVertex, StrokeVertexConstructor,
@@ -34,6 +18,8 @@ use lyon_tessellation::{
 use tess::{FillOptions, StrokeOptions};
 
 use crate::{entity::ShapeColors, utils::DrawMode};
+use bevy::render::pipeline::PrimitiveTopology;
+use bevy::render::mesh::Indices;
 
 /// Stages for this plugin.
 #[derive(Debug, Clone, Eq, Hash, PartialEq, StageLabel)]
@@ -147,14 +133,14 @@ fn complete_shape_bundle(
                 fill(
                     &mut fill_tess,
                     path,
-                    fill_options,
+                    &fill_options,
                     &mut buffers,
                     colors.main,
                 );
                 stroke(
                     &mut stroke_tess,
                     path,
-                    outline_options,
+                    &outline_options,
                     &mut buffers,
                     colors.outline,
                 );
